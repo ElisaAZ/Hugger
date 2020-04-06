@@ -12,7 +12,7 @@ namespace Hugger
         public IHug NextHug()
         {
             if (_hugQueue.Count == 0)
-                return new Garo().Hug();
+                return DefaultHugger.Hug();
 
             var gotNextHugger = _hugQueue.TryDequeue(out IHugger hugger);
             if (gotNextHugger)
@@ -29,12 +29,7 @@ namespace Hugger
 
         public void SetDefaultHugger(IHugger hugger)
         {
-            if (hugger == null)
-            {
-                throw new ArgumentNullException(nameof(hugger));
-            }
-
-            DefaultHugger = hugger;
+            DefaultHugger = hugger ?? throw new ArgumentNullException(nameof(hugger));
         }
 
         public void AddHugger(IHugger hugger) => _hugQueue.Enqueue(hugger);

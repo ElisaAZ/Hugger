@@ -1,4 +1,5 @@
-﻿using Hugger.DefaultHuggers;
+﻿using System;
+using Hugger.DefaultHuggers;
 using Xunit;
 
 namespace Hugger.Tests
@@ -53,6 +54,25 @@ namespace Hugger.Tests
             Assert.IsType<Dane>(firstHug.Hugger);
             Assert.IsType<Garo>(secondHug.Hugger);
             Assert.IsType<Dane>(thirdHug.Hugger);
+        }
+
+        [Fact]
+        public void DefaultHuggerIsUsedIfNoOneIsInQueue()
+        {
+            var queue = new HugQueue();
+            queue.SetDefaultHugger(new Dane());
+
+            var hug = queue.NextHug();
+
+            Assert.IsType<Dane>(hug.Hugger);
+        }
+
+        [Fact]
+        public void SetDefaultHuggerThrowsExceptionIfNull()
+        {
+            var queue = new HugQueue();
+
+            Assert.Throws<ArgumentNullException>(() => queue.SetDefaultHugger(null));
         }
     }
 }
