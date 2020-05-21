@@ -74,5 +74,11 @@ namespace Hugger.Tests
 
             Assert.Throws<ArgumentNullException>(() => queue.SetDefaultHugger(null));
         }
+
+        [Fact]
+        public void ElisaGivesAHug()
+        {
+            Assert.NotNull(new Elisa().Hug());
+        }
     }
 }
